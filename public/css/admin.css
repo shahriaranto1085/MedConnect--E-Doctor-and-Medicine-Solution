@@ -1,0 +1,129 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    font-size: 24px;
+}
+
+.admin-header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.admin-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ecf0f1;
+    padding: 15px 30px;
+    border-bottom: 1px solid #ccc;
+    font-size: 24px;
+}
+
+.admin-topbar a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #3498db;
+    transition: color 0.3s ease;
+}
+
+.admin-topbar a:hover {
+    color: #1d6fa5;
+    text-decoration: underline;
+}
+
+main {
+    padding: 30px;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    margin-top: 30px;
+}
+
+.container h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    border-left: 4px solid #3498db;
+    padding-left: 15px;
+}
+
+.table {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    padding: 10px 30px;
+}
+
+.table th {
+    background-color: #2c3e50;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px 30px;
+    font-size: 24px;
+}
+
+.table td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 20px 30px;
+    border-bottom: 1px solid #1c1a1a48;
+    font-size: 24px;
+}
+
+.table .btn {
+    margin: 0 4px;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 24px;
+    text-decoration: none;
+    color: white !important;
+}
+
+.table .btn-sm {
+    font-size: 24px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    border-radius: 6px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.table td .btn {
+    margin: 0 4px;
+    border-radius: 20px !important;
+    padding: 6px 15px !important;
+    font-size: 24px !important;
+    text-decoration: none !important;
+    color: white !important;
+    transition: background-color 0.3s ease;
+}
+
+.table td .btn-success {
+    background-color: #218838 !important;
+}
+
+.table td .btn-danger {
+    background-color: #c82333 !important;
+}
+
+.table td .btn-info {
+    background-color: #138496 !important;
+}
