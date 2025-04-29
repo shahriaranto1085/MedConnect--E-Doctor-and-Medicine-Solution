@@ -54,10 +54,10 @@ class AdminController extends Controller
         ->route('admin.doctors')
         ->with('success', 'Doctor verified!');
 
-        return response()->json([
-            'message' => 'Doctor verified!',
-            'doctor' => $doctor
-        ]);
+       // return response()->json([
+           // 'message' => 'Doctor verified!',
+           // 'doctor' => $doctor
+       /// ]);
     }
     
 

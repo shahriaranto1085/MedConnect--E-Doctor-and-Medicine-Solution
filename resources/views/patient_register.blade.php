@@ -120,7 +120,6 @@
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
-{{-- 🔺 Validation errors --}}
 @if ($errors->any())
     <ul>
         @foreach ($errors->all() as $error)

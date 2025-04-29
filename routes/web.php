@@ -6,6 +6,10 @@ use App\Http\Controllers\DoctorAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FitnessTrackerController;
+use App\Http\Controllers\PrescriptionController;
+use App\Http\Controllers\ConfirmedController;
+use App\Http\Controllers\DocMsgController;
+use App\Http\Controllers\PatMsgController;
 
 
 
@@ -13,7 +17,11 @@ Route::get('/', function () {
     return view('index');
 });
 
+//my profile
 
+Route::get('/my_profile', function () {
+    return view('my_profile');
+})->name('my_profile');
 
 // Patient routes
 Route::get('/patient/login', [PatientAuthController::class, 'showLogin'])->name('patient.login');
@@ -44,16 +52,47 @@ Route::get('/admin/doctors/profile/{email}', [AdminController::class, 'viewProfi
 // Logout routes
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+//weight loss goal api
+Route::get('/fitness/weight-goal/{email}', [FitnessTrackerController::class, 'weightLossGoalemail']);
+
+
 // Fitness Tracker routes
 Route::get('/fitness-tracker', function () {
     return view('ft'); 
 });
 
 Route::get('/fitness/bmi', [FitnessTrackerController::class, 'calculateBMI'])->name('fitness.bmi');
+
+
 Route::get('/fitness/weight-goal', [FitnessTrackerController::class, 'weightLossGoal'])->name('fitness.goal');
 
+// Show the prescription form
+Route::get('/prescription/create', [PrescriptionController::class, 'create'])->name('prescription.create');
+
+// Store the prescription
+Route::post('/prescription/store', [PrescriptionController::class, 'store'])->name('prescription.store');
+
+// see prescription as patient
+Route::get('/prescription/view', [PrescriptionController::class, 'patient_view'])->name('patient_view');
 
 
+//view prescription (final outcome)
+Route::get('/prescription/view/{id}', [PrescriptionController::class, 'view_prescription'])->name('patient.prescription.view');
+
+//confirmed consutation
+Route::get('/confirmed/patient', [ConfirmedController::class, 'confirmed_patient'])->name('confirmed.patient');
+
+// Confirmed doctors list
+Route::get('/patient/confirmed', [ConfirmedController::class, 'confirmed_doctor'])->name('confirmed.doctor');
+
+// send message doctor
+Route::get('/doctor/chat/{email}', [DocMsgController::class, 'view_messages'])->name('doctor.chat');
+Route::post('/doctor/send-message', [DocMsgController::class, 'send_message_post'])->name('doctor.send_message_post');
+
+
+//patient send message
+Route::get('/patient/chat/{email}', [PatMsgController::class, 'patient_view_messages'])->name('patient.chat');
+Route::post('/patient/send-message', [PatMsgController::class, 'patient_send_message_post'])->name('patient.send_message_post');
 
 
 

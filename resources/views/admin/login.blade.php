@@ -118,7 +118,7 @@
                 @csrf
                 <input type="text" name="name" placeholder="Name" required>
                 <input type="password" name="password" placeholder="Password" required>
-                @if (session('error'))
+@if (session('error'))
     <div class="alert alert-error">{{ session('error') }}</div>
 @endif
 
@@ -126,7 +126,6 @@
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
-{{-- 🔺 Validation errors --}}
 @if ($errors->any())
     <ul>
         @foreach ($errors->all() as $error)

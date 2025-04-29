@@ -66,10 +66,10 @@
     <nav>
     <img src="images/logo.png" class="logo">
     </nav>
-    <h1 style="text-align: center; color: #333;">Doctors Dashboard</h1>
+    <h1 style="text-align: center; color: #333;">My Profile</h1>
     <div class="card-container">
-        <a href="{{ route('confirmed.patient') }}" class="card">Confirmed Patient</a>
-        <a href="{{ route('prescription.create') }}" class="card">Write Prescriptions</a>
+        <a href="{{ route('confirmed.doctor') }}" class="card">Confirmed Consultation</a>
+        <a href="{{ route('patient_view') }}" class="card">Prescriptions</a>
         <a href="{{ route('fitness.goal') }}" class="card">Edit Profile</a>
     </div>
 </body>

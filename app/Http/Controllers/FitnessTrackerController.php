@@ -47,6 +47,8 @@ class FitnessTrackerController extends Controller
         ]);
     }
 
+    
+
     public function weightLossGoal()
     {
         $user = session('patient');
@@ -80,4 +82,32 @@ class FitnessTrackerController extends Controller
             'targetWeight' => round($targetWeight, 2),
         ]);
     }
+    public function weightLossGoalemail($email)
+{
+    $user = DB::table('reg_user')->where('email', $email)->first();
+
+    if (!$user || !$user->height || !$user->weight || !$user->age) {
+        return response()->json(['error' => 'User not found or missing height, weight, or age data.'], 404);
+    }
+
+    $heightInMeters = $user->height / 100;
+    $currentBmi = $user->weight / ($heightInMeters * $heightInMeters);
+
+    $targetBmi = 29.9;
+    $targetWeight = $targetBmi * ($heightInMeters * $heightInMeters);
+    $weightToLose = $currentBmi >= 30 ? $user->weight - $targetWeight : 0;
+
+    return response()->json([
+        'name' => $user->name,
+        'age' => $user->age,
+        'height' => $user->height,
+        'weight' => $user->weight,
+        'currentBmi' => round($currentBmi, 2),
+        'targetWeight' => round($targetWeight, 2),
+        'weightToLose' => round($weightToLose, 2),
+    ]);
 }
+
+}
+
+

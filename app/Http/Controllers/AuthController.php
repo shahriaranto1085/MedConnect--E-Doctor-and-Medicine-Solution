@@ -30,4 +30,27 @@ class AuthController extends Controller
         }
         return redirect('/')->with('error', 'No active session found.');
     }
+    public function logoutapi($email)
+    {
+        // Check for user in reg_user
+        $user = DB::table('reg_user')->where('email', $email)->first();
+    
+        if ($user) {
+            session(['patient' => $user]); // define session
+            session()->forget('patient');  // forget session
+            return response()->json(['message' => 'Patient logged out successfully!']);
+        }
+    
+        // Check for doctor in reg_doc
+        $doctor = DB::table('reg_doc')->where('email', $email)->first();
+    
+        if ($doctor) {
+            session(['doctor' => $doctor]); // define session
+            session()->forget('doctor');    // forget session
+            return response()->json(['message' => 'Doctor logged out successfully!']);
+        }
+    
+        // If not found in either
+        return response()->json(['message' => 'Email not found in users or doctors!'], 404);
+    }
 }

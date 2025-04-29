@@ -30,18 +30,23 @@ class DoctorAuthController extends Controller
                 ->where('email', $request->email)
                 ->first();
     
-        if ($user) {
-            if ($user->verified === 'yes' && Hash::check($request->password, $user->password)) {
-                session(['doctor' => $user->name]);// doctor_email -- $user->email
-                return redirect()->route('doctor.dashboard');
-            } else {
-                session(['pending_doctor_email' => $user->email]);
-                return redirect()->route('doctor.notVerified');
-            }
-        } else {
+        if (!$user) {
             return back()->with('error', 'Wrong credentials!');
         }
+    
+        if (!Hash::check($request->password, $user->password)) {
+            return back()->with('error', 'Wrong credentials!');
+        }
+    
+        if ($user->verified === 'yes') {
+            session(['doctor' => $user]); // You can also store email if needed
+            return redirect()->route('doctor.dashboard');
+        } else {
+            session(['pending_doctor_email' => $user->email]);
+            return redirect()->route('doctor.notVerified');
+        }
     }
+    
     
 
     public function register(Request $request)
@@ -64,7 +69,7 @@ class DoctorAuthController extends Controller
         ]);
     
         // Check if email already exists
-        $existing = DB::table('reg_user')
+        $existing = DB::table('reg_doc')
                    ->where('email', $request->email)
                    ->first();
     
