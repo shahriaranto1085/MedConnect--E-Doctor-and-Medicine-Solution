@@ -197,7 +197,7 @@ nav ul li a {
             <ul>
                 <li class="licls"><a href="{{ route('my_profile') }}">My Profile</a></li>
                 <li class="licls"><a href="#">Consultation</a></li>
-                <li class="licls"><a href="#">Order Medicine</a></li>
+                <li class="licls"><a href="{{ route('medicine.list') }}">Order Medicine</a></li>
                 <li class="licls"><a href="{{ url('/fitness-tracker') }}">Fitness Tracker</a></li>
                 <li class="licls"><a href="#">Notifications</a></li>
             </ul>

@@ -16,7 +16,7 @@
     <div class="admin-topbar">
         <div>
             <a href="/">View Site</a>
-            <a href="#">Change Password</a>
+            <a href="{{ route('admin.medicine') }}">Update Medicine</a>
             <a href="{{ route('logout') }}">Logout</a>
         </div>
     </div>

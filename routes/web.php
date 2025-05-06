@@ -10,6 +10,8 @@ use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\ConfirmedController;
 use App\Http\Controllers\DocMsgController;
 use App\Http\Controllers\PatMsgController;
+use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\CartController;
 
 
 
@@ -95,5 +97,41 @@ Route::get('/patient/chat/{email}', [PatMsgController::class, 'patient_view_mess
 Route::post('/patient/send-message', [PatMsgController::class, 'patient_send_message_post'])->name('patient.send_message_post');
 
 
+//medicine list
+
+
+Route::get('/medicine/list', [MedicineController::class, 'showMedicines'])->name('medicine.list');
+
+//medicine Dashboard
+Route::get('admin/update_medicine', function () {
+    return view('medicine.med_dash');
+})->name('admin.medicine');
+
+//Update medicine
+Route::get('admin/stock_update', function () {
+    return view('medicine.stock_update');
+})->name('update.stock');
+
+Route::get('admin/new_stock', function () {
+    return view('medicine.new_stock');
+})->name('new.stock');
+
+Route::post('/admin/new_stock_submit', [MedicineController::class, 'new_med_submit'])->name('new.stock.submit');
+
+//search medicine
+Route::get('/medicines/search', [MedicineController::class, 'search'])->name('medicines.search');
+
+// Add to cart
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+
+// View cart
+Route::get('/cart', function () {
+    return view('cart');
+})->name('cart.index');
+
+
+Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
+Route::post('/cart/confirm', [CartController::class, 'confirmCart'])->name('cart.confirm');
 
 ?>
+
