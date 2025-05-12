@@ -103,7 +103,8 @@ public function confirmCart(Request $request)
         'medicines' => json_encode($cart), // Store cart items as JSON
         'total_price' => $totalPrice,
         'location' => $request->input('location'),
-        'confirmed' => 'no', // Set to 'no' initially
+        'phone' => $request->input('phone'),
+        'confirmed' => 'yes', // Set to 'no' initially
         'created_at' => now(),
         'updated_at' => now()
     ]);

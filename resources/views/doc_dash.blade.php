@@ -29,6 +29,7 @@
 
         .logo {
             width: 300px;
+    
         }
 
         .card-container {
@@ -64,13 +65,14 @@
 </head>
 <body>
     <nav>
-    <img src="images/logo.png" class="logo">
+    <img src="{{asset('images/logo.png') }}" class="logo">
     </nav>
     <h1 style="text-align: center; color: #333;">Doctors Dashboard</h1>
     <div class="card-container">
+        <a href="{{ route('doctor.pending') }}" class="card">Pending Patient</a>
         <a href="{{ route('confirmed.patient') }}" class="card">Confirmed Patient</a>
         <a href="{{ route('prescription.create') }}" class="card">Write Prescriptions</a>
-        <a href="{{ route('fitness.goal') }}" class="card">Edit Profile</a>
+        <a href="{{ route('doc.profile') }}" class="card">Edit Profile</a>
     </div>
 </body>
 </html>

@@ -115,7 +115,88 @@ class DoctorAuthController extends Controller
         Auth::logout();
         session()->flush();
         return redirect('/')->with('success', 'Logged out successfully!');
-    }    
+    } 
+    public function edit()
+{
+    $doctor = session('doctor');
+    
+    if (!$doctor) {
+        return redirect()->route('doctor.login')->with('error', 'You must be logged in.');
+    }
+
+    return view('doc_profile', ['doctor' => $doctor]);
 }
+
+
+
+  public function update(Request $request)
+{
+    $doctor = session('doctor');
+
+    if (!$doctor) {
+        return redirect()->route('doctor.login')->with('error', 'You must be logged in.');
+    }
+
+    $request->validate([
+        'name' => 'required|string',
+        'age' => 'required|integer',
+        'phone' => 'required|string',
+        'email' => 'required|email',
+        'schedule' => 'nullable|string',
+        'time' => 'nullable|string',
+        'password' => 'nullable|string|min:6',
+    ]);
+
+    $data = [
+        'name' => $request->name,
+        'age' => $request->age,
+        'phone' => $request->phone,
+        'email' => $request->email,
+        'schedule' => $request->schedule,
+        'time' => $request->time,
+    ];
+
+    if ($request->filled('password')) {
+        $data['password'] = Hash::make($request->password);
+    }
+
+    DB::table('reg_doc')
+        ->where('email', $doctor->email)
+        ->update($data);
+
+    // Refresh session data
+    $updatedDoctor = DB::table('reg_doc')->where('email', $doctor->email)->first();
+    session(['doctor' => $updatedDoctor]);
+
+    return redirect()->route('doc.profile')->with('success', 'Profile updated successfully!');
+}
+
+        public function index(Request $request)
+    {
+        $query = $request->input('query');
+
+        // If search query exists, filter doctors
+        if ($query) {
+            $doctors = DB::table('reg_doc')->where('name', 'like', "%{$query}%")
+                            ->orWhere('specialization', 'like', "%{$query}%")
+                            ->get();
+        } else {
+            $doctors = DB::table('reg_doc')->get(); // Get all doctors if no search query
+        }
+
+        // Pass to view
+        return view('view_doc', [
+            'doctors' => $doctors,
+        ]);
+    }
+
+    
+
+
+
+}
+
+
+
 
 

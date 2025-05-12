@@ -196,7 +196,7 @@ nav ul li a {
             <img src="images/logo.png" class="logo">
             <ul>
                 <li class="licls"><a href="{{ route('my_profile') }}">My Profile</a></li>
-                <li class="licls"><a href="#">Consultation</a></li>
+                <li class="licls"><a href="{{ route('doctors.search') }}">Consultation</a></li>
                 <li class="licls"><a href="{{ route('medicine.list') }}">Order Medicine</a></li>
                 <li class="licls"><a href="{{ url('/fitness-tracker') }}">Fitness Tracker</a></li>
                 <li class="licls"><a href="#">Notifications</a></li>

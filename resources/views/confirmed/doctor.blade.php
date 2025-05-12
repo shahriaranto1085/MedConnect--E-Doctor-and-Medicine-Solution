@@ -5,84 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmed Doctors</title>
     <style>
-        /* Reset some default margins and paddings */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #d4f1f4, #ffffff);
-            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            font-size: 20px;
         }
 
-        .logo {
-            width: 150px;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            color: rgb(22, 13, 78);
-            text-align: center;
-        }
-
-        .doctor-container {
+        .messenger-container {
             width: 100%;
-            max-width: 2500px;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
-        .doctor-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .doctor-table th, .doctor-table td {
-            padding: 25px 30px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .doctor-table th {
+        .header {
             background-image: linear-gradient(45deg, rgb(6, 36, 80), rgb(46, 110, 205));
+            padding: 20px;
             color: white;
-            border-radius: 0px;
+            text-align: center;
+            font-size: 24px;
         }
 
-        .doctor-table tr:hover {
-            background-color: #f1f1f1;
+        .chat-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .chat-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s ease;
+        }
+
+        .chat-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .chat-info {
+            flex-grow: 1;
+        }
+
+        .chat-info .name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .chat-info .email {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .chat-info .time {
+            font-size: 13px;
+            color: #444;
+            margin-top: 5px;
+        }
+
+        .chat-action {
+            margin-left: auto;
         }
 
         .send-message-button {
-            background-image: linear-gradient(45deg, rgb(6, 36, 80), rgb(46, 110, 205));
+            background-color: rgb(46, 110, 205);
             color: white;
             padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 14px;
             text-decoration: none;
-            border-radius: 30px;
-            font-size: 24px;
             transition: background-color 0.3s ease;
         }
 
         .send-message-button:hover {
-            background-color: rgb(0, 23, 139);
+            background-color: rgb(22, 80, 180);
         }
 
         .no-doctors {
+            padding: 30px;
             text-align: center;
             color: #888;
-            margin-top: 20px;
+        }
+
+        .logo {
+            width: 120px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -90,36 +113,31 @@
 <body>
 
     <!-- Logo -->
-    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo">
+    <a href="{{ route('home') }}"><img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo"></a>
 
-    <div class="doctor-container">
-        <h2>Confirmed Doctors</h2>
+    <div class="messenger-container">
+        <div class="header">Confirmed Doctors</div>
 
         @if(count($confirm) > 0)
-            <table class="doctor-table">
-                <thead>
-                    <tr>
-                        <th>Doctor Name</th>
-                        <th>Doctor Email</th>
-                        <th>Consultation Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($confirm as $confirmed)
-                        <tr>
-                            <td>{{ $confirmed->doctor_name }}</td>
-                            <td>{{ $confirmed->doc_email }}</td>
-                            <td>{{ $confirmed->time}}</td>
-                            <td>
-                                <a href="{{ route('patient.chat', $confirmed->doc_email) }}" class="send-message-button">Send Message</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            <ul class="chat-list">
+                @foreach($confirm as $confirmed)
+                    <li class="chat-item">
+                        <div class="avatar">
+                            <img src="{{ asset('images/pic.png') }}" alt="Doctor Avatar" style="width: 100%; border-radius: 50%;">
+                        </div>
+                        <div class="chat-info">
+                            <div class="name">{{ $confirmed->doctor_name }}</div>
+                            <div class="email">{{ $confirmed->doc_email }}</div>
+                            <div class="time">Consultation: {{ $confirmed->time }}</div>
+                        </div>
+                        <div class="chat-action">
+                            <a href="{{ route('patient.chat', $confirmed->doc_email) }}" class="send-message-button">Message</a>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
         @else
-            <p class="no-doctors">No confirmed doctors found.</p>
+            <div class="no-doctors">No confirmed doctors yet.</div>
         @endif
     </div>
 

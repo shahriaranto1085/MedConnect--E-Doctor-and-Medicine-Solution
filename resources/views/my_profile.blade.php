@@ -70,7 +70,7 @@
     <div class="card-container">
         <a href="{{ route('confirmed.doctor') }}" class="card">Confirmed Consultation</a>
         <a href="{{ route('patient_view') }}" class="card">Prescriptions</a>
-        <a href="{{ route('fitness.goal') }}" class="card">Edit Profile</a>
+        <a href="{{ route('pending_consultation') }}" class="card">Pending Consultation</a>
     </div>
 </body>
 </html>

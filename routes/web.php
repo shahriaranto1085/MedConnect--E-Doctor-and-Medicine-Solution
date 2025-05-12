@@ -12,12 +12,13 @@ use App\Http\Controllers\DocMsgController;
 use App\Http\Controllers\PatMsgController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ConsultationController;
 
 
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('home');
 
 //my profile
 
@@ -41,6 +42,16 @@ Route::post('/doctor/register', [DoctorAuthController::class, 'register'])->name
 
 Route::get('/doctor/not-verified', [DoctorAuthController::class, 'notVerified'])->name('doctor.notVerified');
 Route::get('/doctor/dashboard', function () {return view('doc_dash');})->name('doctor.dashboard'); //so simple so implemented here
+Route::get('/doctor/profile/edit', [DoctorAuthController::class, 'edit'])->name('doc.profile');
+Route::put('/doctor/profile/update', [DoctorAuthController::class, 'update'])->name('doctor.profile.update');
+
+//Doctor Search
+Route::get('/doctors', [DoctorAuthController::class, 'index'])->name('doctors.search');
+
+//doctor appointemnt booking
+Route::post('/appointments/book', function () {
+    return back()->with('success', 'Appointment booked successfully!');
+})->name('appointments.book');
 
 //admin
 // Admin Panel Routes
@@ -133,5 +144,20 @@ Route::get('/cart', function () {
 Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
 Route::post('/cart/confirm', [CartController::class, 'confirmCart'])->name('cart.confirm');
 
+
+
+
+
+//Consultation routes
+Route::post('/appointments/book/{doctorEmail}', [ConsultationController::class, 'book'])->name('appointments.book');
+Route::get('/consultation/pending', [ConsultationController::class, 'pending'])->name('pending_consultation');
+
+Route::post('/consultation/update/{id}', [ConsultationController::class, 'update'])->name('consultation.update');
+Route::post('/consultation/cancel/{id}', [ConsultationController::class, 'cancel'])->name('consultation.cancel');
+
+Route::post('/consultation/{id}/confirm', [ConsultationController::class, 'confirm'])->name('consultation.confirm');
+
+
+Route::get('/doctor/pending', [ConsultationController::class, 'pendingPatients'])->name('doctor.pending');
 ?>
 
