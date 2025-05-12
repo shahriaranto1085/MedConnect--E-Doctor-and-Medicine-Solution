@@ -15,9 +15,7 @@ public function book(Request $request, $doc_email)
     $user_email = session('patient')->email;
 
     $time = $request->input('time');
-    if (is_null($time)) {
-        $time = 'flexible';
-    }
+
 
     DB::table('consultation')->insert([
         'doc_email' => $doc_email,

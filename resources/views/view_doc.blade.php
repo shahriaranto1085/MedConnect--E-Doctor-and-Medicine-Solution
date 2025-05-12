@@ -207,9 +207,10 @@
                 <div class="doctor-specialty"><b>Qualification:</b> {{ $doc->degree }}</div>
                 <div class="doctor-specialty">Works at: {{ $doc->worplc }}</div>
                 <div class="doctor-specialty">Consultation: {{ $doc->schedule }}({{ $doc->time }})</div>
-                <input class="int" type="text" name="msg" placeholder="Preffered date and time" required>
+                
                 <form action="{{ route('appointments.book', $doc->email) }}" method="POST">
                     @csrf
+                    <input class="int" type="datetime-local" name="time" placeholder="Preffered date and time" required>
                     <button type="submit" class="book-button">BOOK APPOINTMENT</button>
                 </form>
             </div>

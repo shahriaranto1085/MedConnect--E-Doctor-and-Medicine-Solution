@@ -215,7 +215,7 @@
 
         <form action="{{ route('consultation.update', $appt->id) }}" method="POST">
             @csrf
-            <input class="int" type="text" name="time" value="{{ $appt->time }}" required>
+            <input class="int" type="datetime-local" name="time" value="{{ $appt->time }}" required>
 
             <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
                 <button type="submit" class="book-button">Update</button>
